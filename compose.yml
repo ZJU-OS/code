@@ -1,0 +1,11 @@
+# https://docs.docker.com/reference/compose-file/
+services:
+  zju-os-code:
+    image: git.zju.edu.cn:5050/os/tool:latest
+    container_name: zju-os-code
+    hostname: zju-os-code
+    volumes:
+      - ./:/zju-os/code
+    working_dir: /zju-os/code
+    init: true
+    entrypoint: ["sleep", "infinity"]
