@@ -46,7 +46,7 @@ ifeq ($(shell which docker),)
 # inside docker
 all:
 	make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -C $(KERNEL_PATH) -j$(nproc) defconfig
-	make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -C $(KERNEL_PATH) -j$(nproc)
+	bear -- make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -C $(KERNEL_PATH) -j$(nproc)
 clean:
 	make -C $(KERNEL_PATH) clean
 %:
@@ -60,6 +60,8 @@ all:
 	docker compose stop
 clean:
 	docker compose down -v --remove-orphans
+update: clean
+	docker compose pull
 endif
 
 run:

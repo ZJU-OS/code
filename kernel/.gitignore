@@ -1,0 +1,6 @@
+arch/riscv/boot/Image
+vmlinux
+vmlinux.asm
+user/uapp.bin
+user/uapp.elf
+user/uapp.asm
