@@ -1,0 +1,21 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+  "name": "zju-os-code",
+  // "image": "git.zju.edu.cn:5050/os/tool:latest",
+  "dockerComposeFile": "../compose.yml",
+  "service": "zju-os-code",
+  "workspaceFolder": "/zju-os/code",
+
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "llvm-vs-code-extensions.vscode-clangd",
+        "xaver.clang-format",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}

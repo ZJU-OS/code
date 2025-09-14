@@ -6,6 +6,11 @@ services:
     hostname: zju-os-code
     volumes:
       - ./:/zju-os/code
+      # SSH and Git Configuration pass-through
+      - ~/.gitconfig:/root/.gitconfig:ro
+      - ~/.ssh:/mnt/host_ssh:ro
+    post_start:
+      - command: [ "cp", "-r", "/mnt/host_ssh/.", "/root/.ssh/" ]
     working_dir: /zju-os/code
     init: true
     entrypoint: ["sleep", "infinity"]

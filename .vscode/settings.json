@@ -1,6 +1,7 @@
 {
   "C_Cpp.intelliSenseEngine": "disabled",
-  "[c,cpp]": {
-    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "[c][cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format"
   }
 }
