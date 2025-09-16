@@ -1,4 +1,7 @@
 CONTAINER_NAME := zju-os-code
+MAKEFLAGS := \
+	ARCH=riscv \
+	CROSS_COMPILE=riscv64-linux-gnu-
 
 # File Locations
 ROOTFS_PATH := ../rootfs.ext2
@@ -45,12 +48,12 @@ endif
 ifeq ($(shell which docker),)
 # inside docker
 all:
-	make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -C $(KERNEL_PATH) -j$(nproc) defconfig
-	bear -- make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -C $(KERNEL_PATH) -j$(nproc)
+	make $(MAKEFLAGS) -C $(KERNEL_PATH) defconfig
+	bear -- make $(MAKEFLAGS) -C $(KERNEL_PATH) -j$(shell nproc)
 clean:
 	make -C $(KERNEL_PATH) clean
 %:
-	make ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- -C $(KERNEL_PATH) $@
+	make $(MAKEFLAGS) -C $(KERNEL_PATH) $@
 else
 # outside docker
 all:
