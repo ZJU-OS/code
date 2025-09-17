@@ -1,2 +1,2 @@
-target extended-remote :1234
+target remote :1234
 layout split
