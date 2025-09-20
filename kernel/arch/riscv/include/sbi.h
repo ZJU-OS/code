@@ -7,14 +7,14 @@
 #define csr_read(csr)                                       \
 	({                                                  \
 		uint64_t __v;                               \
-		asm volatile(/* TODO */); \
+		asm volatile(/* Lab1 Task3 */); \
 		__v;                                        \
 	})
 
 #define csr_write(csr, val)                                                \
 	({                                                                 \
 		uint64_t __v = (uint64_t)(val);                            \
-		asm volatile(/* TODO */); \
+		asm volatile(/* Lab1 Task3 */); \
 	})
 
 #define SBI_SUCCESS 0
