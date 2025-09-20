@@ -1,7 +1,19 @@
 {
   "C_Cpp.intelliSenseEngine": "disabled",
   "terminal.integrated.defaultProfile.linux": "fish",
+  "editor.renderWhitespace": "boundary",
   "[c][cpp]": {
     "editor.defaultFormatter": "xaver.clang-format"
-  }
+  },
+  "[makefile]": {
+    "editor.defaultFormatter": "eshojaei.mbake-makefile-formatter"
+  },
+  "files.associations": {
+    "CODEOWNERS": "plaintext",
+  },
+  "workbench.editorAssociations": {
+    "Image": "hexEditor.hexedit",
+    "*.o": "elfpreview.elfViewer",
+    "vmlinux": "elfpreview.elfViewer",
+  },
 }
