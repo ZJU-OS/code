@@ -6,15 +6,29 @@
   "dockerComposeFile": "../compose.yml",
   "service": "zju-os-code",
   "workspaceFolder": "/zju-os/code",
+  "initializeCommand": {
+    // check if host Git and SSH config exist
+    "git": "if [ ! -f ~/.gitconfig ]; then echo 'Error: ~/.gitconfig not found on host'; exit 1; fi;",
+    "ssh": "if [ ! -d ~/.ssh ]; then echo 'Error: ~/.ssh not found on host'; exit 1; fi;"
+  },
 
   "customizations": {
     // Configure properties specific to VS Code.
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
+        "ms-vscode.cpptools",
         "llvm-vs-code-extensions.vscode-clangd",
         "xaver.clang-format",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "mhutchie.git-graph",
+        "sunshaoce.RISC-V",
+        "eshojaei.mbake-makefile-formatter",
+        "ms-vscode.hexeditor",
+        "jlevere.elfpreview",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff"
       ]
     }
   }

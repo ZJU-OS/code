@@ -1,0 +1,3 @@
+[submodule "autograder"]
+	path = autograder
+	url = https://git.zju.edu.cn/os/autograder.git
