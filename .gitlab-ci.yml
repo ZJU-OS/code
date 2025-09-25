@@ -1,4 +1,5 @@
 # https://docs.gitlab.com/ci/yaml/
+# https://docs.gitlab.com/ci/variables/predefined_variables/
 default:
   image: git.zju.edu.cn:5050/os/tool:latest
   cache:
@@ -34,3 +35,7 @@ test:
     # - sleep 1d # debug
     - uv --project autograder run autograder
     - uv cache prune --ci
+  rules:
+    # do not run tests in release repository
+    - if: '$CI_PROJECT_NAME == "code"'
+      when: never

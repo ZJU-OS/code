@@ -44,7 +44,7 @@ endif
 
 ifeq ($(shell which docker),)
 # inside docker
-all:
+all: clean
 	make \
 		-C $(KERNEL_PATH) \
 		ARCH=riscv \

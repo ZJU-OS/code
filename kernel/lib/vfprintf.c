@@ -463,7 +463,10 @@ static int printf_core(FILE *f, const char *fmt, va_list *ap, union arg *nl_arg,
 		//	return -1;
 
 		z = buf + sizeof(buf);
-		prefix = "-+	0X0x";
+		// clang-format off
+		// clang-format will change spaces in this line to tabs, causing output failure
+		prefix = "-+   0X0x";
+		// clang-format on
 		pl = 0;
 		t = s[-1];
 
