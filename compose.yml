@@ -10,7 +10,10 @@ services:
       - ~/.gitconfig:/root/.gitconfig:ro
       - ~/.ssh:/mnt/host_ssh:ro
     post_start:
-      - command: [ "cp", "-r", "/mnt/host_ssh/.", "/root/.ssh/" ]
+      - command: ["cp", "-r", "/mnt/host_ssh/.", "/root/.ssh/"]
     working_dir: /zju-os/code
+    environment:
+      - UV_LINK_MODE=copy
+      - TZ=Asia/Shanghai
     init: true
     entrypoint: ["sleep", "infinity"]

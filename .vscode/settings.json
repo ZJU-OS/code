@@ -1,7 +1,27 @@
 {
   "C_Cpp.intelliSenseEngine": "disabled",
   "terminal.integrated.defaultProfile.linux": "fish",
+  "editor.renderWhitespace": "boundary",
   "[c][cpp]": {
     "editor.defaultFormatter": "xaver.clang-format"
-  }
+  },
+  "[makefile]": {
+    "editor.defaultFormatter": "eshojaei.mbake-makefile-formatter"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "[yaml][json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "CODEOWNERS": "plaintext"
+  },
+  "workbench.editorAssociations": {
+    "Image": "hexEditor.hexedit",
+    "*.o": "elfpreview.elfViewer",
+    "vmlinux": "elfpreview.elfViewer"
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/autograder/.venv/bin/python",
+  "remote.autoForwardPorts": false
 }

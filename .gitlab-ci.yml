@@ -1,0 +1,36 @@
+# https://docs.gitlab.com/ci/yaml/
+default:
+  image: git.zju.edu.cn:5050/os/tool:latest
+  cache:
+    - key:
+        files:
+          - uv.lock
+      paths:
+        - $UV_CACHE_DIR
+variables:
+  # https://docs.gitlab.com/ci/runners/git_submodules/
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_SUBMODULE_FORCE_HTTPS: "true"
+  UV_CACHE_DIR: .uv-cache
+
+build:
+  stage: build
+  script:
+    - make
+  artifacts:
+    paths:
+      - kernel/vmlinux
+      - kernel/arch/riscv/boot/Image
+
+test:
+  stage: test
+  dependencies:
+    - build
+  before_script:
+    - qemu-system-riscv64 --version
+    - gdb-multiarch --version
+    - uv --version
+  script:
+    # - sleep 1d # debug
+    - uv --project autograder run autograder
+    - uv cache prune --ci
