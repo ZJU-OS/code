@@ -37,5 +37,7 @@ test:
     - uv cache prune --ci
   rules:
     # do not run tests in release repository
-    - if: '$CI_PROJECT_NAME == "code"'
+    - if: $CI_PROJECT_NAME == "code"
       when: never
+    # run for all other repositories on build success
+    - if: $CI_PROJECT_NAME
