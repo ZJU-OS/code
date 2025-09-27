@@ -92,3 +92,6 @@ gdb:
 
 ocd:
 	openocd -f openocd.cfg
+
+judge: all
+	uv --project autograder run autograder
