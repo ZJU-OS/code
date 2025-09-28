@@ -32,12 +32,12 @@ test:
     - gdb-multiarch --version
     - uv --version
   script:
-    # - sleep 1d # debug
     - uv --project autograder run autograder
+  after_script:
     - uv cache prune --ci
   rules:
     # do not run tests in release repository
     - if: $CI_PROJECT_NAME == "code"
-      when: never
+      when: manual
     # run for all other repositories on build success
     - if: $CI_PROJECT_NAME
