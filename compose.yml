@@ -1,9 +1,8 @@
 # https://docs.docker.com/reference/compose-file/
 services:
   zju-os-code:
-    image: git.zju.edu.cn:5050/os/tool:latest
-    container_name: zju-os-code
-    hostname: zju-os-code
+    image: git.zju.edu.cn:5050/zju-cs-lab/tool/sys:latest
+    hostname: zju-os
     volumes:
       - ./:/zju-os/code
       # SSH and Git Configuration pass-through

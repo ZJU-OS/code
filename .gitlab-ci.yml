@@ -1,7 +1,7 @@
 # https://docs.gitlab.com/ci/yaml/
 # https://docs.gitlab.com/ci/variables/predefined_variables/
 default:
-  image: git.zju.edu.cn:5050/os/tool:latest
+  image: git.zju.edu.cn:5050/zju-cs-lab/tool/sys:latest
   cache:
     - key:
         files:

@@ -1,10 +1,10 @@
 CONTAINER_NAME := zju-os-code
 
 # File Locations
-ROOTFS_PATH := ../rootfs.ext2
-INITRD_PATH := ../initrd.gz
-FAT32_PATH := ../fat32.img
-#KERNEL_PATH := $(wildcard ../linux-*)
+ROOTFS_PATH := /opt/rootfs.ext2
+INITRD_PATH := /opt/initrd.gz
+FAT32_PATH := /opt/fat32.img
+#KERNEL_PATH := $(wildcard /opt/linux-*)
 KERNEL_PATH := kernel
 IMAGE_PATH := $(KERNEL_PATH)/arch/riscv/boot/Image
 VMLINUX_PATH := $(KERNEL_PATH)/vmlinux
