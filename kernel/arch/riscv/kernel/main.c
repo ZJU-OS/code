@@ -18,7 +18,7 @@ noreturn void start_kernel(void)
 
 	uint64_t num_loops = 10000;
 	uint64_t time_start = clock();
-	for (uint64_t i = 0; i < num_loops; i += 1) {
+	for (volatile uint64_t i = 0; i < num_loops; i += 1) {
 		// do nothing, just waste time
 	}
 	uint64_t time_end = clock();
