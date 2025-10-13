@@ -1,8 +1,14 @@
 #include <stdint.h>
 #include <stdnoreturn.h>
 #include <printk.h>
+#include <proc.h>
 #include <sbi.h>
 #include <time.h>
+#include <stdbool.h>
+#include <csr.h>
+#include <kthread.h>
+#include <log.h>
+#include "test.h"
 
 noreturn void start_kernel(void)
 {
@@ -26,7 +32,10 @@ noreturn void start_kernel(void)
 	       num_loops, (time_end - time_start) / CLOCKS_PER_SEC,
 	       time_end - time_start);
 
+	kernel_thread(kthreadd, NULL); // Lab2 Test3
+	kthread_create(test_sched, NULL); // Lab2 Test4
+
 	/* Lab1 Task4 */
 
-	__builtin_unreachable();
+	do_exit(0);
 }

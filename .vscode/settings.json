@@ -2,6 +2,7 @@
   "C_Cpp.intelliSenseEngine": "disabled",
   "terminal.integrated.defaultProfile.linux": "fish",
   "editor.renderWhitespace": "boundary",
+  "editor.renderControlCharacters": true,
   "[c][cpp]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },

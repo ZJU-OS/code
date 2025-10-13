@@ -1,7 +1,11 @@
+#include <proc.h>
 #include <stdint.h>
 #include <printk.h>
 #include <sbi.h>
+#include <csr.h>
 #include <private_kdefs.h>
+#include <log.h>
+#include <sched.h>
 
 // convenient macro to generate scause
 #define __SCAUSE(is_intr, code) \
@@ -81,11 +85,11 @@ static const char *scause_str(uint64_t scause)
 	}
 }
 
-void clock_set_next_event(void) {
+void do_stip(void) {
 	/* Lab1 Task4 */
 };
 
-void clear_ssip(void)
+void do_ssip(void)
 {
 	/* Lab1 Task3 */
 }
@@ -95,12 +99,11 @@ void trap_handler(uint64_t sepc, uint64_t scause, uint64_t stval)
 	switch (scause) {
 	/* Lab1 Task4 */
 	default:
-		printk("\x1b[45m[S]\x1b[1;31;49m Unhandled trap: scause = \x1b[33m%s (0x%" PRIx64
-		       ")\x1b[31m, "
-		       "sepc = \x1b[33m0x%" PRIx64
-		       "\x1b[31m, stval = \x1b[33m0x%" PRIx64 "\x1b[0m\n",
-		       scause_str(scause), scause, sepc, stval);
-		/* sbi_system_reset(SBI_SRST_RESET_TYPE_SHUTDOWN,
-				 SBI_SRST_RESET_REASON_SYSTEM_FAILURE); */
+		LOG_ERR("Unhandled trap: scause = %s (0x%" PRIx64
+			"), sepc = 0x%" PRIx64 ", stval = 0x%" PRIx64 "\n",
+			scause_str(scause), scause, sepc, stval);
+		for (;;)
+			;
 	}
+	/* Lab2 Task4 */
 }

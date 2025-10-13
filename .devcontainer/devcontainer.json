@@ -28,7 +28,8 @@
         "jlevere.elfpreview",
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "charliermarsh.ruff"
+        "charliermarsh.ruff",
+        "iliazeus.vscode-ansi"
       ]
     }
   }
