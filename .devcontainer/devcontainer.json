@@ -21,7 +21,7 @@
         "llvm-vs-code-extensions.vscode-clangd",
         "xaver.clang-format",
         "esbenp.prettier-vscode",
-        "mhutchie.git-graph",
+        "eamodio.gitlens",
         "sunshaoce.RISC-V",
         "eshojaei.mbake-makefile-formatter",
         "ms-vscode.hexeditor",

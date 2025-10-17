@@ -1,3 +1,4 @@
+#include "csr.h"
 #include <mm.h>
 #include <string.h>
 #include <printk.h>
@@ -43,8 +44,10 @@ static uint64_t fixsize(uint64_t size)
 
 static void buddy_free(uint64_t pfn)
 {
+	interrupt_disable();
 	// if ref_cnt is not zero, do nothing
 	if (buddy.ref_cnt[pfn]) {
+		interrupt_enable();
 		return;
 	}
 
@@ -75,10 +78,12 @@ static void buddy_free(uint64_t pfn)
 			buddy.bitmap[index] =
 				__MAX(left_longest, right_longest);
 	}
+	interrupt_enable();
 }
 
 static uint64_t buddy_alloc(size_t nrpages)
 {
+	interrupt_disable();
 	uint64_t index = 0;
 
 	if (nrpages == 0) {
@@ -115,6 +120,7 @@ static uint64_t buddy_alloc(size_t nrpages)
 					    buddy.bitmap[RIGHT_LEAF(index)]);
 	}
 
+	interrupt_enable();
 	return pfn;
 }
 

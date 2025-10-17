@@ -11,6 +11,7 @@ _start:
 
     /* Lab1 Task3 */
 
+    /* Lab2 Test1 */
     call test_list
 
     /* Lab2 Task2 */

@@ -1,3 +1,4 @@
+#include <csr.h>
 #include <kthread.h>
 #include <proc.h>
 #include <printk.h>
@@ -28,6 +29,7 @@ int kthreadd(void *unused)
 {
 	(void)unused;
 	for (;;) {
+		interrupt_disable();
 		while (!list_empty(&kthread_create_list)) {
 			struct kthread_create_info *info =
 				list_entry(kthread_create_list.next,
@@ -40,6 +42,7 @@ int kthreadd(void *unused)
 				  new_task->pid, info->threadfn, info->data,
 				  (void *)new_task);
 		}
+		interrupt_enable();
 		//	不再占用时间片，让出 CPU 给其他线程
 		current->se.runtime = 0;
 		schedule();

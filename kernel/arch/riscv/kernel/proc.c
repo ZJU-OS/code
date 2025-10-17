@@ -53,11 +53,9 @@ void switch_to(struct task_struct *next)
 {
 	struct task_struct *prev = current;
 
-	interrupt_disable();
 	LOG_DEBUG("Switch to [PID = %" PRIu64 "]\n", next->pid);
 	__switch_to(prev, next);
 	LOG_DEBUG("Switch done\n");
-	interrupt_enable();
 }
 
 struct task_struct *copy_process(struct task_struct *old)
