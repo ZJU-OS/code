@@ -52,7 +52,8 @@ void log_print(int level, const char *file, int line, const char *func,
 	len = snprintf(
 		buf, sizeof(buf),
 		"%s\x1b[1m[%s, PID = %lu]\x1b[0m \x1b[90m%s:%d:%s:\x1b[0m %s",
-		color, level_str, current->pid, file, line, func, color);
+		color, level_str, current ? current->pid : 0, file, line, func,
+		color);
 	if (len < 0 || (size_t)len >= sizeof(buf)) {
 		// 如果前缀太长，直接打印错误
 		printk("[LOG] Prefix too long\n");
