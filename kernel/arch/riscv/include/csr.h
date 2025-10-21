@@ -62,19 +62,35 @@
 	})
 
 /**
+ * @brief 读取并设置 CSR 寄存器位
+ * @param csr CSR 寄存器名
+ * @param val 要设置的位
+ * @return 读取的原值
+ */
+#define csr_read_clear(csr, val)                      \
+	({                                            \
+		uint64_t __v = (uint64_t)(val);       \
+		asm volatile("csrrc %0, " #csr ", %1" \
+			     : "=r"(__v)              \
+			     : "rK"(__v)              \
+			     : "memory");             \
+		__v;                                  \
+	})
+
+/**
  * @brief 全局使能中断
  */
-static inline void interrupt_enable(void)
+static inline void interrupt_restore(uint64_t *flags)
 {
-	csr_set(sstatus, SSTATUS_SIE);
+	csr_set(sstatus, *flags & SSTATUS_SIE);
 }
 
 /**
  * @brief 全局禁用中断
  */
-static inline void interrupt_disable(void)
+static inline void interrupt_save(uint64_t *flags)
 {
-	csr_clear(sstatus, SSTATUS_SIE);
+	*flags = csr_read_clear(sstatus, SSTATUS_SIE);
 }
 
 #endif // __ASSEMBLER__

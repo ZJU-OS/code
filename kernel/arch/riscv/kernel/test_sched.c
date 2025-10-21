@@ -1,3 +1,4 @@
+#include <csr.h>
 #include <list.h>
 #include <printk.h>
 #include <proc.h>
@@ -29,6 +30,7 @@ static struct task_struct snapshot[PROC_COUNT];
 
 static int process(void *data)
 {
+	uint64_t flags;
 	struct process *proc = (struct process *)data;
 	uint64_t current_time = clock() - initial_clock;
 	printk("\nProcess %d started at %lu, burst %lu\n", proc->id,
@@ -45,6 +47,7 @@ static int process(void *data)
 			last_print_time = now;
 		}
 		// 检查新任务
+		interrupt_save(&flags);
 		for (size_t i = 0; i < PROC_COUNT; i++) {
 			if (!processes[i].created &&
 			    processes[i].arrival_time * CLOCKS_PER_SEC <=
@@ -53,6 +56,7 @@ static int process(void *data)
 				kthread_create(process, &processes[i]);
 			}
 		}
+		interrupt_restore(&flags);
 	}
 	current_time = clock() - initial_clock;
 	printk("\nProcess %d finished at %lu\n", proc->id,
@@ -64,6 +68,7 @@ static int process(void *data)
 int test_sched(void *)
 {
 	printk("\n[Lab2 Task5] Priority-based Scheduling Test\n");
+	initial_clock = clock();
 	kthread_create(process, &processes[0]);
 	return 0;
 }

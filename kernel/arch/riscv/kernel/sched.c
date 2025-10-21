@@ -1,4 +1,4 @@
-#include "csr.h"
+#include <csr.h>
 #include <sched.h>
 #include <list.h>
 #include <proc.h>
@@ -9,7 +9,8 @@
 
 void schedule(void)
 {
-	interrupt_disable();
+	uint64_t flags;
+	interrupt_save(&flags);
 	struct task_struct *next_task = NULL;
 
 	/* Lab2 Task4 */
@@ -25,5 +26,5 @@ void schedule(void)
 		for (;;)
 			;
 	}
-	interrupt_enable();
+	interrupt_restore(&flags);
 }

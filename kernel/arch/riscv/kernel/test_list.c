@@ -35,8 +35,8 @@ static void record_list(struct list_head *head)
 int test_list(void *)
 {
 	printk("\n[Lab2 Task1] Doubly-linked List Test\n");
-	static struct test_node nodes[MAX_NODES];
-	static int next_node = 0;
+	struct test_node nodes[MAX_NODES];
+	int next_node = 0;
 
 	// 1. 静态声明并初始化一个链表头
 	LIST_HEAD(test_list_head);

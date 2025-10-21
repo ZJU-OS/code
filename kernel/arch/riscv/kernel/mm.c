@@ -1,5 +1,6 @@
-#include "csr.h"
+#include <csr.h>
 #include <mm.h>
+#include <stdint.h>
 #include <string.h>
 #include <printk.h>
 #include <log.h>
@@ -44,10 +45,11 @@ static uint64_t fixsize(uint64_t size)
 
 static void buddy_free(uint64_t pfn)
 {
-	interrupt_disable();
+	uint64_t flags;
+	interrupt_save(&flags);
 	// if ref_cnt is not zero, do nothing
 	if (buddy.ref_cnt[pfn]) {
-		interrupt_enable();
+		interrupt_restore(&flags);
 		return;
 	}
 
@@ -78,12 +80,11 @@ static void buddy_free(uint64_t pfn)
 			buddy.bitmap[index] =
 				__MAX(left_longest, right_longest);
 	}
-	interrupt_enable();
+	interrupt_restore(&flags);
 }
 
 static uint64_t buddy_alloc(size_t nrpages)
 {
-	interrupt_disable();
 	uint64_t index = 0;
 
 	if (nrpages == 0) {
@@ -120,12 +121,12 @@ static uint64_t buddy_alloc(size_t nrpages)
 					    buddy.bitmap[RIGHT_LEAF(index)]);
 	}
 
-	interrupt_enable();
 	return pfn;
 }
 
 static void buddy_init(void)
 {
+	LOG_INFO("Buddy System Init Start");
 	uint64_t buddy_size = (uint64_t)PHY_SIZE / PGSIZE;
 
 	if (!IS_POWER_OF_2(buddy_size))
@@ -154,12 +155,15 @@ static void buddy_init(void)
 		buddy_alloc(1);
 	}
 
-	printk("[mm_init] Done! size = %lu\n", buddy.size);
+	LOG_INFO("Buddy System Init Done! size = %lu\n", buddy.size);
 }
 
 void *alloc_pages(size_t nrpages)
 {
+	uint64_t flags;
+	interrupt_save(&flags);
 	uint64_t pfn = buddy_alloc(nrpages);
+	interrupt_restore(&flags);
 	return (void *)PFN2PHYS(pfn);
 }
 
