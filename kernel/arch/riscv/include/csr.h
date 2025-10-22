@@ -11,6 +11,11 @@
 #define SIP_SSIP (1UL << 1)
 #define SIP_STIP (1UL << 5)
 #define SIP_SEIP (1UL << 9)
+#define SATP_MODE_BARE (0UL << 60)
+#define SATP_MODE_SV39 (8UL << 60)
+#define SATP_MODE_SV48 (9UL << 60)
+#define SATP_MODE_SV57 (10UL << 60)
+#define SATP_MODE_SV64 (11UL << 60)
 
 #ifndef __ASSEMBLER__
 

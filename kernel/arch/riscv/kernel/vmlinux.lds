@@ -7,12 +7,15 @@ PHY_SIZE     = (128 * 1024 * 1024);
 PHY_END      = (PHY_START + PHY_SIZE);
 PGSIZE       = 0x1000;
 OPENSBI_SIZE = (0x200000);
+VM_DIRECT_START = 0xffffffd600000000;
+VM_DIRECT_END = (VM_DIRECT_START + PHY_SIZE);
 
 MEMORY {
     ram  (wxa!ri): ORIGIN = PHY_START + OPENSBI_SIZE, LENGTH = PHY_SIZE - OPENSBI_SIZE
+    ramv (wxa!ri): ORIGIN = VM_DIRECT_START + OPENSBI_SIZE, LENGTH = PHY_SIZE - OPENSBI_SIZE
 }
 
-BASE_ADDR = PHY_START + OPENSBI_SIZE;
+BASE_ADDR = VM_DIRECT_START + OPENSBI_SIZE;
 
 SECTIONS
 {
@@ -28,7 +31,7 @@ SECTIONS
         *(.text .text.*)
 
         _etext = .;
-    } AT>ram
+    } >ramv AT>ram
 
     .rodata : ALIGN(0x1000) {
         _srodata = .;
@@ -36,7 +39,7 @@ SECTIONS
         *(.rodata .rodata.*)
 
         _erodata = .;
-    } AT>ram
+    } >ramv AT>ram
 
     .data : ALIGN(0x1000) {
         _sdata = .;
@@ -47,18 +50,20 @@ SECTIONS
         _edata = .;
 
         . = ALIGN(0x1000);
-    } AT>ram
+    } >ramv AT>ram
 
     .bss : ALIGN(0x1000) {
+        _sbss = .;
+        _sstack = .;
         *(.bss.stack)
         . = ALIGN(0x1000);
-        _sbss = .;
+        _estack = .;
 
         *(.sbss .sbss.*)
         *(.bss .bss.*)
 
         _ebss = .;
-    } AT>ram
+    } >ramv AT>ram
 
     . = ALIGN(0x1000);
     _ekernel = .;

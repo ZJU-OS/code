@@ -10,10 +10,17 @@ _start:
 
     /* Lab1 Task1 */
 
+    /* Lab1 Task3 */
+
+    /* Lab3 Task1 */
+    call setup_vm
+    call relocate
+
     # init memory
     call mm_init
 
-    /* Lab1 Task3 */
+    /* Lab3 Task2 */
+    call setup_vm_final
 
     /* Lab2 Test1 */
     call test_list
@@ -23,6 +30,11 @@ _start:
     call task_init
 
     tail start_kernel
+
+relocate:
+    /* Lab3 Task1 */
+
+    ret
 
     .section .bss.stack
     .space PGSIZE

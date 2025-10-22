@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <printk.h>
 #include <sbi.h>
+#include <vm.h>
 
 static int printk_sbi_write(FILE *restrict fp, const void *restrict buf,
 			    size_t len)
 {
 	(void)fp;
-	sbi_debug_console_write(len, (unsigned long)buf, 0);
+	sbi_debug_console_write(len, VA2PA((unsigned long)buf), 0);
 	return len;
 }
 

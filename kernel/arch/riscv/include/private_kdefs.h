@@ -18,4 +18,9 @@
 /** OpenSBI 大小 */
 #define OPENSBI_SIZE 0x200000
 
+/** 虚拟内存（直接映射） */
+#define VM_DIRECT_START 0xffffffd600000000
+#define VM_DIRECT_END (VM_DIRECT_START + PHY_SIZE)
+#define PA2VA_OFFSET (VM_DIRECT_START - PHY_START)
+
 #endif

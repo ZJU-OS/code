@@ -1,6 +1,7 @@
 #include <csr.h>
 #include <mm.h>
 #include <stdint.h>
+#include <vm.h>
 #include <string.h>
 #include <printk.h>
 #include <log.h>
@@ -151,7 +152,7 @@ static void buddy_init(void)
 		buddy.bitmap[i] = node_size;
 	}
 
-	for (uint64_t pfn = PHYS2PFN(free_page_start); pfn; --pfn) {
+	for (uint64_t pfn = PHYS2PFN(VA2PA(free_page_start)); pfn; --pfn) {
 		buddy_alloc(1);
 	}
 
@@ -164,7 +165,7 @@ void *alloc_pages(size_t nrpages)
 	interrupt_save(&flags);
 	uint64_t pfn = buddy_alloc(nrpages);
 	interrupt_restore(&flags);
-	return (void *)PFN2PHYS(pfn);
+	return (void *)PA2VA(PFN2PHYS(pfn));
 }
 
 void *alloc_page(void)
@@ -174,7 +175,7 @@ void *alloc_page(void)
 
 void free_pages(void *pa)
 {
-	buddy_free(PHYS2PFN(pa));
+	buddy_free(PHYS2PFN(VA2PA(pa)));
 }
 
 void mm_init(void) __attribute__((alias("buddy_init")));
