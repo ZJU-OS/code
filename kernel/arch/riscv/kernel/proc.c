@@ -26,11 +26,9 @@
 #endif
 
 // 外部符号
-extern char _sbss[]; /* kernel stack bottom */
 void __switch_to(struct task_struct *prev, struct task_struct *next);
 // 全局变量
 LIST_HEAD(task_list);
-struct task_struct *idle_task;
 // 本地变量
 static struct kmem_cache *task_cache;
 
